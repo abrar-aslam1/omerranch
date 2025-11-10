@@ -10,6 +10,12 @@ document.addEventListener('DOMContentLoaded', () => {
     initFormHandling();
     initSmoothScroll();
     initTextAnimations();
+    initScrollProgress();
+    initBackToTop();
+    initParallax();
+    initScrollIndicator();
+    initCardHoverEffects();
+    initStaggeredAnimations();
 });
 
 // ===================================
@@ -68,7 +74,7 @@ function initLoadingScreen() {
         }, 100);
     }
 
-    // Simulate loading progress
+    // Simulate loading progress - much faster
     let progress = 0;
     let loadingInterval = null;
     let isComplete = false;
@@ -81,7 +87,7 @@ function initLoadingScreen() {
                 return;
             }
             
-            progress += Math.random() * 20 + 5; // Faster progress
+            progress += Math.random() * 8 + 4; // Even slower progress increments
             if (progress >= 100) {
                 progress = 100;
                 isComplete = true;
@@ -89,22 +95,22 @@ function initLoadingScreen() {
                 
                 progressBar.style.width = '100%';
                 
-                // Hide loading screen after a short delay
+                // Hide loading screen immediately
                 setTimeout(() => {
                     hideLoadingScreen();
-                }, 300);
+                }, 100);
             } else {
                 progressBar.style.width = progress + '%';
             }
-        }, 50); // Faster interval
+        }, 85); // Even slower interval
     } else {
         // If no progress bar, just wait and hide
         setTimeout(() => {
             hideLoadingScreen();
-        }, 2000);
+        }, 500);
     }
 
-    // CRITICAL FALLBACK: Always hide after maximum time (2.5 seconds)
+    // CRITICAL FALLBACK: Always hide after maximum time (4.5 seconds)
     setTimeout(() => {
         if (!isComplete) {
             isComplete = true;
@@ -119,8 +125,8 @@ function initLoadingScreen() {
         // Force hide after a brief delay
         setTimeout(() => {
             hideLoadingScreen();
-        }, 200);
-    }, 2500);
+        }, 600);
+    }, 4500);
 }
 
 function triggerHeroAnimations() {
@@ -162,11 +168,16 @@ function animateWords(element) {
     
     words.forEach((word, index) => {
         const span = document.createElement('span');
-        span.textContent = word + ' ';
+        span.textContent = word;
         span.style.opacity = '0';
-        span.style.display = 'inline-block';
+        span.style.display = 'inline';
         span.style.animation = `fadeInUp 0.3s ease-out ${index * 0.05}s forwards`;
         element.appendChild(span);
+        
+        // Add space after each word except the last one
+        if (index < words.length - 1) {
+            element.appendChild(document.createTextNode(' '));
+        }
     });
 }
 
@@ -285,8 +296,8 @@ function initScrollAnimations() {
     }, observerOptions);
 
     // Observe all elements with data-scroll attribute
-    const animatedElements = document.querySelectorAll('[data-scroll]');
-    animatedElements.forEach(element => {
+    const scrollElements = document.querySelectorAll('[data-scroll]');
+    scrollElements.forEach(element => {
         observer.observe(element);
     });
 
@@ -319,7 +330,8 @@ function initCounterAnimations() {
     const counters = document.querySelectorAll('.stat-number[data-count]');
     
     const observerOptions = {
-        threshold: 0.5
+        threshold: 0.3,
+        rootMargin: '0px'
     };
 
     const counterObserver = new IntersectionObserver((entries) => {
@@ -338,18 +350,24 @@ function initCounterAnimations() {
     function animateCounter(element) {
         const target = parseInt(element.getAttribute('data-count'));
         const duration = 2000;
-        const increment = target / (duration / 16);
+        const steps = 60;
         let current = 0;
+        let step = 0;
 
         const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                element.textContent = target + (element.textContent.includes('+') ? '+' : '');
+            step++;
+            // Easing function for smooth acceleration
+            const progress = step / steps;
+            const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+            current = target * easeOutQuart;
+            
+            if (step >= steps) {
+                element.textContent = target + (target === 100 || target === 200 || target === 50 ? '+' : '');
                 clearInterval(timer);
             } else {
-                element.textContent = Math.floor(current) + (element.textContent.includes('+') ? '+' : '');
+                element.textContent = Math.floor(current) + (target === 100 || target === 200 || target === 50 ? '+' : '');
             }
-        }, 16);
+        }, duration / steps);
     }
 }
 
@@ -448,6 +466,374 @@ if ('ontouchstart' in window) {
 }
 
 // ===================================
+// SCROLL PROGRESS BAR
+// ===================================
+
+function initScrollProgress() {
+    // Create scroll progress bar
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    document.body.appendChild(progressBar);
+
+    // Update progress on scroll
+    window.addEventListener('scroll', () => {
+        const windowHeight = window.innerHeight;
+        const documentHeight = document.documentElement.scrollHeight - windowHeight;
+        const scrolled = window.scrollY;
+        const progress = (scrolled / documentHeight) * 100;
+        
+        progressBar.style.width = progress + '%';
+    });
+}
+
+// ===================================
+// BACK TO TOP BUTTON
+// ===================================
+
+function initBackToTop() {
+    // Create back to top button
+    const backToTop = document.createElement('button');
+    backToTop.className = 'back-to-top';
+    backToTop.innerHTML = '↑';
+    backToTop.setAttribute('aria-label', 'Back to top');
+    document.body.appendChild(backToTop);
+
+    // Show/hide on scroll
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+    });
+
+    // Scroll to top on click
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
+// ===================================
+// PARALLAX EFFECT
+// ===================================
+
+function initParallax() {
+    const heroImage = document.querySelector('.hero-bg-image');
+    const hero = document.querySelector('.hero');
+    
+    if (!heroImage || !hero) return;
+
+    let ticking = false;
+    
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const scrolled = window.scrollY;
+                const heroHeight = hero.offsetHeight;
+                
+                // Only apply parallax while hero is visible
+                if (scrolled < heroHeight) {
+                    const parallaxSpeed = 0.4;
+                    const translateY = scrolled * parallaxSpeed;
+                    heroImage.style.transform = `translateY(${translateY}px) scale(1.1)`;
+                    
+                    // Fade out scroll indicator as user scrolls
+                    const scrollIndicator = document.querySelector('.scroll-indicator');
+                    if (scrollIndicator) {
+                        const opacity = Math.max(0, 1 - (scrolled / 300));
+                        scrollIndicator.style.opacity = opacity;
+                    }
+                }
+                
+                ticking = false;
+            });
+            
+            ticking = true;
+        }
+    });
+}
+
+// ===================================
+// SCROLL INDICATOR
+// ===================================
+
+function initScrollIndicator() {
+    const scrollIndicator = document.querySelector('.scroll-indicator');
+    
+    if (!scrollIndicator) return;
+    
+    // Smooth scroll to next section on click
+    scrollIndicator.addEventListener('click', () => {
+        const aboutSection = document.querySelector('#about');
+        if (aboutSection) {
+            const offsetTop = aboutSection.offsetTop - 80;
+            window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+            });
+        }
+    });
+    
+    // Add hover effect
+    scrollIndicator.addEventListener('mouseenter', () => {
+        scrollIndicator.style.transform = 'translateX(-50%) scale(1.1)';
+    });
+    
+    scrollIndicator.addEventListener('mouseleave', () => {
+        scrollIndicator.style.transform = 'translateX(-50%) scale(1)';
+    });
+}
+
+// ===================================
+// CARD HOVER 3D EFFECTS
+// ===================================
+
+function initCardHoverEffects() {
+    const cards = document.querySelectorAll('.property-card, .activity-card, .feature-item');
+    
+    cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            
+            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+}
+
+// ===================================
+// STAGGERED ANIMATIONS
+// ===================================
+
+function initStaggeredAnimations() {
+    const observerOptions = {
+        root: null,
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const items = entry.target.querySelectorAll('.activity-card, .feature-item, .feature-box, .info-card');
+                
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+                
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe sections with multiple cards
+    const sections = document.querySelectorAll('.activities-grid, .about-features, .property-features, .contact-info');
+    sections.forEach(section => {
+        // Set initial state for items
+        const items = section.querySelectorAll('.activity-card, .feature-item, .feature-box, .info-card');
+        items.forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(30px)';
+            item.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        });
+        
+        observer.observe(section);
+    });
+}
+
+// ===================================
+// ENHANCED FORM INTERACTIONS
+// ===================================
+
+function enhanceFormFields() {
+    const formInputs = document.querySelectorAll('.form-group input, .form-group select, .form-group textarea');
+    
+    formInputs.forEach(input => {
+        // Add focus effects
+        input.addEventListener('focus', () => {
+            input.parentElement.style.transform = 'translateY(-2px)';
+        });
+        
+        input.addEventListener('blur', () => {
+            input.parentElement.style.transform = '';
+        });
+        
+        // Add ripple effect on input
+        input.addEventListener('input', () => {
+            input.style.borderColor = 'var(--sage-green)';
+            setTimeout(() => {
+                input.style.borderColor = '';
+            }, 300);
+        });
+    });
+}
+
+// Call on page load
+window.addEventListener('load', () => {
+    enhanceFormFields();
+});
+
+// ===================================
+// SMOOTH REVEAL ANIMATIONS
+// ===================================
+
+function initSmoothReveal() {
+    const reveals = document.querySelectorAll('.section-badge, .section-title, .section-subtitle');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    reveals.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        revealObserver.observe(element);
+    });
+}
+
+// Initialize smooth reveal
+window.addEventListener('load', () => {
+    initSmoothReveal();
+});
+
+// ===================================
+// BUTTON RIPPLE EFFECT
+// ===================================
+
+function createRipple(event, button) {
+    const ripple = document.createElement('span');
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
+    
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('ripple');
+    
+    // Add ripple styles
+    ripple.style.position = 'absolute';
+    ripple.style.borderRadius = '50%';
+    ripple.style.background = 'rgba(255, 255, 255, 0.6)';
+    ripple.style.transform = 'scale(0)';
+    ripple.style.animation = 'ripple 0.6s ease-out';
+    ripple.style.pointerEvents = 'none';
+    
+    button.appendChild(ripple);
+    
+    setTimeout(() => {
+        ripple.remove();
+    }, 600);
+}
+
+// Add ripple effect to buttons
+document.addEventListener('click', (e) => {
+    const button = e.target.closest('.cta-button, .submit-button, .contact-link');
+    if (button) {
+        createRipple(e, button);
+    }
+});
+
+// Add ripple animation to CSS dynamically
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes ripple {
+        to {
+            transform: scale(4);
+            opacity: 0;
+        }
+    }
+    .cta-button, .submit-button, .contact-link {
+        position: relative;
+        overflow: hidden;
+    }
+`;
+document.head.appendChild(style);
+
+// ===================================
+// MAGNETIC BUTTON EFFECT
+// ===================================
+
+function initMagneticButtons() {
+    const buttons = document.querySelectorAll('.cta-button, .submit-button');
+    
+    buttons.forEach(button => {
+        button.addEventListener('mousemove', (e) => {
+            const rect = button.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            button.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px)`;
+        });
+        
+        button.addEventListener('mouseleave', () => {
+            button.style.transform = '';
+        });
+    });
+}
+
+// Initialize magnetic buttons
+window.addEventListener('load', () => {
+    initMagneticButtons();
+});
+
+// ===================================
+// PERFORMANCE OPTIMIZATION
+// ===================================
+
+// Debounce function for scroll events
+function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+}
+
+// Throttle function for frequent events
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    };
+}
+
+// ===================================
 // CONSOLE MESSAGE
 // ===================================
 
@@ -457,3 +843,5 @@ console.log('%c🌲 Exceptional Hunting & Wildlife in the Heart of Texas 🌲',
     'font-size: 14px; color: #3d6b1f; font-style: italic;');
 console.log('%c100+ Acres • 200+ Deer • 50+ Wildlife Species', 
     'font-size: 12px; color: #6b9d4e;');
+console.log('%c✨ Enhanced with Advanced Animations & Interactions', 
+    'font-size: 11px; color: #6b9d4e; font-style: italic;');
