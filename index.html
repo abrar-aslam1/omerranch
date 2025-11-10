@@ -3,51 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omer Ranch - Nature Reserve & Wildlife Sanctuary</title>
+    <title>Omer Ranch - Premium Hunting & Wildlife Experience</title>
+    <meta name="description" content="Omer Ranch offers exceptional hunting opportunities, wildlife viewing, and outdoor experiences on a pristine Texas property.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Nature Reserve Background -->
-    <div class="reserve-background">
-        <div class="sky-layer"></div>
-        <div class="mountain-layer"></div>
-        <div class="forest-layer"></div>
-        <div class="ground-layer"></div>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-content">
+            <div class="logo-container">
+                <img src="logos/Black Clean omer rnach white Logo.png" alt="Omer Ranch Logo" class="loading-logo" id="loadingLogo">
+                <div class="logo-placeholder" id="logoPlaceholder" style="display: none;">
+                    <span class="logo-text-large">OMER RANCH</span>
+                </div>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">Loading...</p>
+        </div>
     </div>
 
-    <!-- Floating Wildlife Elements -->
-    <div class="wildlife-container" id="wildlifeContainer"></div>
-    
-    <!-- Falling Leaves -->
-    <div class="leaves-container" id="leavesContainer"></div>
-    
-    <!-- Floating Particles -->
-    <div class="particles-container" id="particlesContainer"></div>
-    
-    <!-- Animated Clouds -->
-    <div class="clouds-container" id="cloudsContainer"></div>
-
-    <!-- Navigation - Park Style -->
+    <!-- Navigation -->
     <nav class="nav-container">
         <div class="nav-content">
             <div class="logo">
-                <div class="logo-badge">
-                    <span class="logo-icon">🦌</span>
-                </div>
-                <div class="logo-text">
-                    <span class="logo-main">OMER RANCH</span>
-                    <span class="logo-subtitle">Nature Reserve & Wildlife Sanctuary</span>
-                </div>
+                <img src="logos/Black Clean omer rnach Logo.png" alt="Omer Ranch" class="nav-logo">
+                <span class="logo-text">OMER RANCH</span>
             </div>
             <ul class="nav-menu" id="navMenu">
                 <li><a href="#home" class="nav-link active">Home</a></li>
-                <li><a href="#wildlife" class="nav-link">Wildlife</a></li>
-                <li><a href="#deer" class="nav-link">Deer</a></li>
-                <li><a href="#hunting" class="nav-link">Hunting</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#property" class="nav-link">The Ranch</a></li>
+                <li><a href="#activities" class="nav-link">Activities</a></li>
                 <li><a href="#visit" class="nav-link">Visit</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="nav-toggle" id="navToggle">
                 <span></span>
@@ -57,265 +50,213 @@
         </div>
     </nav>
 
-    <!-- Hero Section - Park Entrance -->
+    <!-- Hero Section -->
     <section id="home" class="hero">
         <div class="hero-image">
-            <img src="2025-11-09.jpg" alt="Deer herd in natural habitat at Omer Ranch" class="hero-bg-image">
+            <img src="2025-11-09.jpg" alt="Omer Ranch - Deer herd in natural habitat" class="hero-bg-image">
+            <div class="hero-overlay"></div>
         </div>
         <div class="hero-content">
-            <div class="park-sign">
-                <div class="sign-top">
-                    <span class="sign-icon">🌲</span>
-                </div>
-                <div class="sign-content">
-                    <h1 class="hero-title">OMER RANCH</h1>
-                    <p class="hero-subtitle">Nature Reserve & Wildlife Sanctuary</p>
-                    <div class="sign-divider"></div>
-                    <p class="hero-description">
-                        Experience pristine wilderness, abundant wildlife, and world-class hunting 
-                        on our protected nature reserve. Home to thriving deer populations, 
-                        diverse wildlife, and untouched natural beauty.
-                    </p>
-                </div>
-            </div>
+            <div class="hero-badge animate-fade-in-up">PREMIUM RANCH EXPERIENCE</div>
+            <h1 class="hero-title animate-typewriter">OMER RANCH</h1>
+            <p class="hero-subtitle animate-slide-in-left">Exceptional Hunting & Wildlife in the Heart of Texas</p>
+            <p class="hero-description animate-fade-in-up-delay">
+                Experience world-class hunting, abundant wildlife, and pristine natural beauty 
+                on our carefully managed ranch property. Independent ownership ensures personalized 
+                service and authentic Texas ranch experiences.
+            </p>
             <div class="hero-stats">
-                <div class="stat-card">
+                <div class="stat-item">
                     <div class="stat-number" data-count="100">0</div>
                     <div class="stat-label">Acres</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-item">
                     <div class="stat-number" data-count="200">0</div>
                     <div class="stat-label">Deer Population</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-item">
                     <div class="stat-number" data-count="50">0</div>
                     <div class="stat-label">Wildlife Species</div>
                 </div>
             </div>
-            <a href="#wildlife" class="cta-button">
-                <span>Explore the Reserve</span>
-                <span class="button-icon">→</span>
+            <a href="#visit" class="cta-button">
+                <span>Plan Your Visit</span>
+                <span class="button-arrow">→</span>
             </a>
         </div>
-        <div class="scroll-indicator">
-            <div class="scroll-mouse"></div>
-            <p>Scroll to explore</p>
-        </div>
     </section>
 
-    <!-- Wildlife Section -->
-    <section id="wildlife" class="section wildlife-section">
-        <div class="section-header" data-scroll>
-            <div class="section-badge">🦌 WILDLIFE</div>
-            <h2 class="section-title">Diverse Wildlife Ecosystem</h2>
-            <p class="section-subtitle">Our reserve is home to a thriving community of native wildlife</p>
-        </div>
-
-        <div class="wildlife-grid">
-            <div class="wildlife-card" data-scroll>
-                <div class="card-header">
-                    <div class="card-icon">🦌</div>
-                    <h3>White-Tailed Deer</h3>
-                </div>
-                <div class="card-body">
-                    <p>Our flagship species. The reserve supports a healthy, sustainable population of white-tailed deer, carefully managed for both conservation and hunting.</p>
-                    <ul class="wildlife-features">
-                        <li>✓ Healthy breeding population</li>
-                        <li>✓ Natural habitat preservation</li>
-                        <li>✓ Year-round observation opportunities</li>
-                        <li>✓ Sustainable hunting management</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="wildlife-card" data-scroll>
-                <div class="card-header">
-                    <div class="card-icon">🦅</div>
-                    <h3>Birds of Prey</h3>
-                </div>
-                <div class="card-body">
-                    <p>Hawks, eagles, and owls patrol the skies above the reserve, maintaining the natural balance of our ecosystem.</p>
-                    <ul class="wildlife-features">
-                        <li>✓ Red-tailed hawks</li>
-                        <li>✓ Bald eagles</li>
-                        <li>✓ Great horned owls</li>
-                        <li>✓ Bird watching tours</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="wildlife-card" data-scroll>
-                <div class="card-header">
-                    <div class="card-icon">🦃</div>
-                    <h3>Wild Turkey</h3>
-                </div>
-                <div class="card-body">
-                    <p>Flocks of wild turkey roam the forest floor, providing excellent hunting opportunities during spring and fall seasons.</p>
-                    <ul class="wildlife-features">
-                        <li>✓ Spring gobbler season</li>
-                        <li>✓ Fall turkey hunting</li>
-                        <li>✓ Guided hunts available</li>
-                        <li>✓ Conservation focused</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="wildlife-card" data-scroll>
-                <div class="card-header">
-                    <div class="card-icon">🦊</div>
-                    <h3>Small Game</h3>
-                </div>
-                <div class="card-body">
-                    <p>From rabbits to squirrels, the reserve supports diverse small game populations perfect for year-round hunting.</p>
-                    <ul class="wildlife-features">
-                        <li>✓ Rabbit hunting</li>
-                        <li>✓ Squirrel season</li>
-                        <li>✓ Coyote management</li>
-                        <li>✓ Year-round opportunities</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Deer Focus Section -->
-    <section id="deer" class="section deer-section">
-        <div class="deer-image-container" data-scroll>
-            <img src="2025-11-09.jpg" alt="Deer herd in natural habitat" class="deer-feature-image">
-        </div>
-        <div class="deer-hero">
-            <div class="deer-content" data-scroll>
-                <div class="section-badge">🦌 DEER MANAGEMENT</div>
-                <h2 class="section-title">Thriving Deer Population</h2>
-                <p class="section-subtitle">Sustainable management for healthy herds</p>
-                <p class="deer-description">
-                    Our deer management program focuses on maintaining a healthy, balanced population 
-                    through careful habitat management, selective harvesting, and conservation practices. 
-                    This ensures excellent hunting opportunities while preserving the herd for future generations.
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+        <div class="container">
+            <div class="section-header" data-scroll>
+                <div class="section-badge animate-fade-in-up">ABOUT OMER RANCH</div>
+                <h2 class="section-title animate-slide-in-up">Back to Your Roots</h2>
+                <p class="section-subtitle animate-fade-in-up-delay">
+                    Independent ownership means personalized service, authentic experiences, 
+                    and a deep commitment to conservation and quality.
                 </p>
             </div>
-            <div class="deer-stats-grid" data-scroll>
-                <div class="deer-stat">
-                    <div class="deer-stat-number">200+</div>
-                    <div class="deer-stat-label">Deer Population</div>
+            <div class="about-content">
+                <div class="about-text" data-scroll>
+                    <h3 class="animate-slide-in-right">Our Story</h3>
+                    <p class="animate-fade-in-up-delay">
+                        Omer Ranch represents generations of stewardship and a passion for preserving 
+                        Texas wildlife and natural habitats. As independent owners, we take pride in 
+                        offering exceptional hunting experiences while maintaining the highest standards 
+                        of wildlife management and conservation.
+                    </p>
+                    <p class="animate-fade-in-up-delay-2">
+                        Our property has been carefully managed to support thriving deer populations, 
+                        diverse wildlife, and pristine natural landscapes. Every aspect of the ranch 
+                        reflects our commitment to quality, from habitat management to guest experiences.
+                    </p>
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">🌲</div>
+                            <h4>Conservation Focus</h4>
+                            <p>Sustainable wildlife management and habitat preservation</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">🎯</div>
+                            <h4>Quality Hunting</h4>
+                            <p>Well-managed herds with mature bucks and healthy populations</p>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">👨‍👩‍👧‍👦</div>
+                            <h4>Family Owned</h4>
+                            <p>Independent ownership ensures personalized attention</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="deer-stat">
-                    <div class="deer-stat-number">85%</div>
-                    <div class="deer-stat-label">Buck-to-Doe Ratio</div>
-                </div>
-                <div class="deer-stat">
-                    <div class="deer-stat-number">150+</div>
-                    <div class="deer-stat-label">Average Score</div>
-                </div>
-                <div class="deer-stat">
-                    <div class="deer-stat-number">4+</div>
-                    <div class="deer-stat-label">Year Average Age</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="deer-features">
-            <div class="feature-box" data-scroll>
-                <div class="feature-icon">🌲</div>
-                <h3>Natural Habitat</h3>
-                <p>Diverse forest cover, open meadows, and natural water sources provide ideal deer habitat year-round.</p>
-            </div>
-            <div class="feature-box" data-scroll>
-                <div class="feature-icon">🌾</div>
-                <h3>Food Plots</h3>
-                <p>Strategically placed food plots ensure deer have access to quality nutrition throughout all seasons.</p>
-            </div>
-            <div class="feature-box" data-scroll>
-                <div class="feature-icon">💧</div>
-                <h3>Water Sources</h3>
-                <p>Natural springs and ponds provide fresh water, attracting deer and supporting the ecosystem.</p>
-            </div>
-            <div class="feature-box" data-scroll>
-                <div class="feature-icon">📊</div>
-                <h3>Population Management</h3>
-                <p>Regular surveys and selective harvesting maintain optimal herd health and age structure.</p>
             </div>
         </div>
     </section>
 
-    <!-- Hunting Section -->
-    <section id="hunting" class="section hunting-section">
-        <div class="hunting-header">
+    <!-- Property Section -->
+    <section id="property" class="section property-section">
+        <div class="container">
             <div class="section-header" data-scroll>
-                <div class="section-badge">🎯 HUNTING</div>
-                <h2 class="section-title">Premium Hunting Experience</h2>
-                <p class="section-subtitle">World-class hunting in a pristine nature reserve</p>
+                <div class="section-badge animate-fade-in-up">THE RANCH</div>
+                <h2 class="section-title animate-slide-in-up">Property Details</h2>
+                <p class="section-subtitle animate-fade-in-up-delay">
+                    A carefully managed property designed for exceptional wildlife and hunting experiences
+                </p>
+            </div>
+            <div class="property-grid">
+                <div class="property-card featured">
+                    <div class="property-image">
+                        <img src="2025-11-09.jpg" alt="Omer Ranch property view">
+                        <div class="property-badge">Featured</div>
+                    </div>
+                    <div class="property-info" data-scroll>
+                        <h3 class="animate-slide-in-right">Omer Ranch</h3>
+                        <div class="property-price animate-fade-in-up-delay">Private Property</div>
+                        <div class="property-details">
+                            <div class="detail-item">
+                                <span class="detail-label">Acres</span>
+                                <span class="detail-value">100+</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Location</span>
+                                <span class="detail-value">Texas</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Deer Population</span>
+                                <span class="detail-value">200+</span>
+                            </div>
+                            <div class="detail-item">
+                                <span class="detail-label">Wildlife Species</span>
+                                <span class="detail-value">50+</span>
+                            </div>
+                        </div>
+                        <p class="property-description">
+                            Pristine hunting property featuring diverse terrain, natural water sources, 
+                            strategic food plots, and excellent deer habitat. Well-maintained stands 
+                            and blinds throughout the property.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="property-features">
+                <div class="feature-box">
+                    <div class="feature-icon-large">🌲</div>
+                    <h4>Natural Habitat</h4>
+                    <p>Diverse forest cover, open meadows, and natural water sources provide ideal habitat year-round.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon-large">🌾</div>
+                    <h4>Food Plots</h4>
+                    <p>Strategically placed food plots ensure quality nutrition for wildlife throughout all seasons.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon-large">💧</div>
+                    <h4>Water Sources</h4>
+                    <p>Natural springs and ponds provide fresh water, attracting wildlife and supporting the ecosystem.</p>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-icon-large">🏹</div>
+                    <h4>Hunting Infrastructure</h4>
+                    <p>Well-maintained tree stands, ground blinds, and access roads throughout the property.</p>
+                </div>
             </div>
         </div>
+    </section>
 
-        <div class="hunting-content">
-            <div class="hunting-main" data-scroll>
-                <div class="hunting-intro">
-                    <h3>Experience the Best in Deer Hunting</h3>
-                    <p>
-                        Omer Ranch offers exceptional hunting opportunities in a carefully managed 
-                        nature reserve. Our sustainable approach ensures healthy deer populations 
-                        and outstanding hunting experiences season after season.
-                    </p>
-                </div>
-
-                <div class="hunting-features-grid">
-                    <div class="hunting-feature">
-                        <div class="feature-icon-large">🏹</div>
-                        <h4>Expert Guides</h4>
-                        <p>Experienced guides who know every trail, stand location, and deer pattern on the property.</p>
-                    </div>
-                    <div class="hunting-feature">
-                        <div class="feature-icon-large">🌲</div>
-                        <h4>Prime Stands</h4>
-                        <p>Strategically placed tree stands and ground blinds in proven deer activity areas.</p>
-                    </div>
-                    <div class="hunting-feature">
-                        <div class="feature-icon-large">🏕️</div>
-                        <h4>Lodging</h4>
-                        <p>Comfortable cabins and facilities for multi-day hunting expeditions.</p>
-                    </div>
-                    <div class="hunting-feature">
-                        <div class="feature-icon-large">🦌</div>
-                        <h4>Quality Deer</h4>
-                        <p>Well-managed herd with mature bucks and healthy does throughout the property.</p>
-                    </div>
-                </div>
+    <!-- Activities Section -->
+    <section id="activities" class="section activities-section">
+        <div class="container">
+            <div class="section-header" data-scroll>
+                <div class="section-badge animate-fade-in-up">ACTIVITIES</div>
+                <h2 class="section-title animate-slide-in-up">What We Offer</h2>
+                <p class="section-subtitle animate-fade-in-up-delay">
+                    World-class experiences in a pristine natural setting
+                </p>
             </div>
-
-            <div class="hunting-seasons" data-scroll>
-                <div class="seasons-card">
-                    <h3>Hunting Seasons</h3>
-                    <div class="season-item">
-                        <div class="season-info">
-                            <span class="season-icon">🦌</span>
-                            <div>
-                                <strong>Deer Season</strong>
-                                <p>Archery & Rifle</p>
-                            </div>
-                        </div>
-                        <span class="season-dates">Oct 1 - Jan 31</span>
-                    </div>
-                    <div class="season-item">
-                        <div class="season-info">
-                            <span class="season-icon">🦃</span>
-                            <div>
-                                <strong>Turkey Season</strong>
-                                <p>Spring & Fall</p>
-                            </div>
-                        </div>
-                        <span class="season-dates">Mar 15 - May 15</span>
-                    </div>
-                    <div class="season-item">
-                        <div class="season-info">
-                            <span class="season-icon">🦊</span>
-                            <div>
-                                <strong>Small Game</strong>
-                                <p>Year Round</p>
-                            </div>
-                        </div>
-                        <span class="season-dates">All Year</span>
-                    </div>
+            <div class="activities-grid">
+                <div class="activity-card">
+                    <div class="activity-icon">🦌</div>
+                    <h3>Deer Hunting</h3>
+                    <p>Exceptional white-tailed deer hunting with well-managed herds featuring mature bucks and healthy populations.</p>
+                    <ul class="activity-features">
+                        <li>Archery & Rifle Seasons</li>
+                        <li>Expert Guidance Available</li>
+                        <li>Quality Stands & Blinds</li>
+                        <li>Sustainable Management</li>
+                    </ul>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon">🦃</div>
+                    <h3>Turkey Hunting</h3>
+                    <p>Spring and fall turkey hunting opportunities with healthy populations of wild turkey.</p>
+                    <ul class="activity-features">
+                        <li>Spring Gobbler Season</li>
+                        <li>Fall Turkey Hunting</li>
+                        <li>Guided Hunts Available</li>
+                        <li>Conservation Focused</li>
+                    </ul>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon">📷</div>
+                    <h3>Wildlife Viewing</h3>
+                    <p>Observe diverse wildlife in their natural habitat, perfect for photography and nature enthusiasts.</p>
+                    <ul class="activity-features">
+                        <li>Year-Round Viewing</li>
+                        <li>Photography Tours</li>
+                        <li>Bird Watching</li>
+                        <li>Educational Tours</li>
+                    </ul>
+                </div>
+                <div class="activity-card">
+                    <div class="activity-icon">🏕️</div>
+                    <h3>Outdoor Experiences</h3>
+                    <p>Custom outdoor experiences tailored to your interests, from family outings to corporate retreats.</p>
+                    <ul class="activity-features">
+                        <li>Custom Packages</li>
+                        <li>Group Events</li>
+                        <li>Lodging Available</li>
+                        <li>Flexible Scheduling</li>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -323,74 +264,103 @@
 
     <!-- Visit Section -->
     <section id="visit" class="section visit-section">
-        <div class="section-header" data-scroll>
-            <div class="section-badge">📍 VISIT US</div>
-            <h2 class="section-title">Plan Your Visit</h2>
-            <p class="section-subtitle">Experience the reserve for yourself</p>
+        <div class="container">
+            <div class="section-header" data-scroll>
+                <div class="section-badge animate-fade-in-up">VISIT US</div>
+                <h2 class="section-title animate-slide-in-up">Plan Your Experience</h2>
+                <p class="section-subtitle animate-fade-in-up-delay">
+                    Book your visit to Omer Ranch and experience exceptional hunting and wildlife viewing
+                </p>
+            </div>
+            <div class="visit-content">
+                <form class="visit-form" id="visitForm">
+                    <h3>Reserve Your Visit</h3>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="dates">Preferred Dates</label>
+                            <input type="text" id="dates" name="dates" placeholder="e.g., Oct 15-17, 2025">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="interest">What are you interested in?</label>
+                            <select id="interest" name="interest" required>
+                                <option value="">Select an option...</option>
+                                <option value="hunting">Deer Hunting</option>
+                                <option value="turkey">Turkey Hunting</option>
+                                <option value="wildlife">Wildlife Viewing</option>
+                                <option value="photography">Wildlife Photography</option>
+                                <option value="tour">Property Tour</option>
+                                <option value="custom">Custom Experience</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="message">Tell us about your visit</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="submit-button">
+                        <span>Submit Inquiry</span>
+                        <span class="btn-arrow">→</span>
+                    </button>
+                </form>
+                <div class="contact-info">
+                    <div class="info-card">
+                        <div class="info-icon">📍</div>
+                        <h4>Location</h4>
+                        <p>Omer Ranch<br>Texas</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">📞</div>
+                        <h4>Contact</h4>
+                        <p>Phone: (555) 123-4567<br>Email: info@omerranch.com</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">🕐</div>
+                        <h4>Availability</h4>
+                        <p>Open Daily: Dawn to Dusk<br>Hunting by Appointment</p>
+                    </div>
+                    <div class="info-card highlight">
+                        <div class="info-icon">🦌</div>
+                        <h4>Ready to Visit?</h4>
+                        <p>We're accepting bookings for the upcoming season. Contact us today to reserve your experience!</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="visit-content">
-            <form class="visit-form" id="visitForm" data-scroll>
-                <h3>Reserve Your Experience</h3>
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label for="name">Full Name</label>
-                        <input type="text" id="name" required>
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-text" data-scroll>
+                    <h2 class="animate-slide-in-up">Get in Touch</h2>
+                    <p class="animate-fade-in-up-delay">
+                        As independent owners, we're personally involved in every aspect of Omer Ranch. 
+                        Whether you're interested in hunting, wildlife viewing, or learning more about 
+                        the property, we'd love to hear from you.
+                    </p>
+                    <div class="contact-methods">
+                        <a href="tel:+15551234567" class="contact-link">
+                            <span class="contact-icon">📞</span>
+                            <span>(555) 123-4567</span>
+                        </a>
+                        <a href="mailto:info@omerranch.com" class="contact-link">
+                            <span class="contact-icon">✉️</span>
+                            <span>info@omerranch.com</span>
+                        </a>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="dates">Preferred Dates</label>
-                        <input type="text" id="dates" placeholder="e.g., Oct 15-17, 2025">
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="interest">What are you interested in?</label>
-                        <select id="interest" required>
-                            <option value="">Select an option...</option>
-                            <option value="hunting">Hunting Experience</option>
-                            <option value="wildlife">Wildlife Viewing</option>
-                            <option value="photography">Wildlife Photography</option>
-                            <option value="tour">Reserve Tour</option>
-                            <option value="custom">Custom Experience</option>
-                        </select>
-                    </div>
-                    <div class="form-group full-width">
-                        <label for="message">Tell us about your visit</label>
-                        <textarea id="message" rows="5" required></textarea>
-                    </div>
-                </div>
-                <button type="submit" class="submit-button">
-                    <span>Submit Inquiry</span>
-                    <span class="btn-arrow">→</span>
-                </button>
-            </form>
-
-            <div class="contact-info" data-scroll>
-                <div class="info-card">
-                    <div class="info-icon">📍</div>
-                    <h4>Location</h4>
-                    <p>Omer Ranch Nature Reserve<br>100 Acres of Protected Wilderness</p>
-                </div>
-                <div class="info-card">
-                    <div class="info-icon">📞</div>
-                    <h4>Contact</h4>
-                    <p>Phone: (555) 123-4567<br>Email: info@omerranch.com</p>
-                </div>
-                <div class="info-card">
-                    <div class="info-icon">🕐</div>
-                    <h4>Hours</h4>
-                    <p>Open Daily: Dawn to Dusk<br>Hunting by Appointment</p>
-                </div>
-                <div class="info-card highlight">
-                    <div class="info-icon">🦌</div>
-                    <h4>Reserve Status</h4>
-                    <p>Open for hunting, wildlife viewing, and guided tours. Book your experience today!</p>
                 </div>
             </div>
         </div>
@@ -400,42 +370,35 @@
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-brand">
-                <div class="footer-logo">
-                    <span class="footer-icon">🦌</span>
-                    <div>
-                        <h3>OMER RANCH</h3>
-                        <p>Nature Reserve & Wildlife Sanctuary</p>
-                    </div>
-                </div>
-                <p class="footer-tagline">Preserving nature, supporting wildlife, providing exceptional hunting experiences.</p>
+                <h3>OMER RANCH</h3>
+                <p>Independent Ownership • Exceptional Experiences • Conservation Focused</p>
             </div>
             <div class="footer-links">
                 <div class="footer-column">
                     <h4>Explore</h4>
                     <a href="#home">Home</a>
-                    <a href="#wildlife">Wildlife</a>
-                    <a href="#deer">Deer</a>
-                    <a href="#hunting">Hunting</a>
-                    <a href="#visit">Visit</a>
+                    <a href="#about">About</a>
+                    <a href="#property">The Ranch</a>
+                    <a href="#activities">Activities</a>
                 </div>
                 <div class="footer-column">
-                    <h4>Activities</h4>
-                    <a href="#hunting">Deer Hunting</a>
-                    <a href="#hunting">Turkey Hunting</a>
-                    <a href="#wildlife">Wildlife Viewing</a>
-                    <a href="#wildlife">Photography</a>
+                    <h4>Services</h4>
+                    <a href="#activities">Deer Hunting</a>
+                    <a href="#activities">Turkey Hunting</a>
+                    <a href="#activities">Wildlife Viewing</a>
+                    <a href="#visit">Book a Visit</a>
                 </div>
                 <div class="footer-column">
                     <h4>Contact</h4>
                     <p>(555) 123-4567</p>
                     <p>info@omerranch.com</p>
-                    <p>Open Daily</p>
+                    <p>Texas</p>
                 </div>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2025 Omer Ranch Nature Reserve. All rights reserved.</p>
-            <p>Conservation • Wildlife • Hunting Excellence</p>
+            <p>&copy; 2025 Omer Ranch. All rights reserved.</p>
+            <p>Independent Owner • Private Property</p>
         </div>
     </footer>
 
