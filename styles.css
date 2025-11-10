@@ -69,6 +69,22 @@ body {
         var(--sky-blue) 0%,
         #a8d5e2 50%,
         #d4c5a0 100%);
+    animation: skyShift 30s ease-in-out infinite;
+}
+
+@keyframes skyShift {
+    0%, 100% {
+        background: linear-gradient(180deg, 
+            var(--sky-blue) 0%,
+            #a8d5e2 50%,
+            #d4c5a0 100%);
+    }
+    50% {
+        background: linear-gradient(180deg, 
+            #a8d5e2 0%,
+            #b8e5f2 50%,
+            #e4d5c0 100%);
+    }
 }
 
 .mountain-layer {
@@ -82,6 +98,18 @@ body {
         rgba(61, 107, 31, 0.3) 50%,
         rgba(45, 80, 22, 0.5) 100%);
     clip-path: polygon(0 100%, 100% 100%, 100% 50%, 0 30%);
+    animation: mountainBreathe 20s ease-in-out infinite;
+}
+
+@keyframes mountainBreathe {
+    0%, 100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0.9;
+        transform: translateY(-5px);
+    }
 }
 
 .forest-layer {
@@ -94,6 +122,18 @@ body {
         rgba(45, 80, 22, 0.4) 0%,
         rgba(61, 107, 31, 0.6) 50%,
         rgba(45, 80, 22, 0.8) 100%);
+    animation: forestSway 25s ease-in-out infinite;
+}
+
+@keyframes forestSway {
+    0%, 100% {
+        transform: translateX(0);
+        filter: brightness(1);
+    }
+    50% {
+        transform: translateX(-10px);
+        filter: brightness(1.05);
+    }
 }
 
 .ground-layer {
@@ -118,6 +158,138 @@ body {
     pointer-events: none;
     z-index: 1;
     overflow: hidden;
+}
+
+/* ===================================
+   FALLING LEAVES
+   =================================== */
+
+.leaves-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.leaf {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.7;
+    filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.2));
+    animation: fall linear infinite, sway linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) translateX(50px);
+    }
+}
+
+@keyframes sway {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg); }
+    75% { transform: rotate(5deg); }
+}
+
+/* ===================================
+   FLOATING PARTICLES (POLLEN, DUST)
+   =================================== */
+
+.particles-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 200, 0.6);
+    border-radius: 50%;
+    animation: floatParticle linear infinite;
+    box-shadow: 0 0 6px rgba(255, 255, 200, 0.5);
+}
+
+@keyframes floatParticle {
+    0% {
+        transform: translateY(100vh) translateX(0) scale(0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-10vh) translateX(100px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* ===================================
+   ANIMATED CLOUDS
+   =================================== */
+
+.clouds-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.cloud {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+    opacity: 0.4;
+    animation: drift linear infinite;
+    filter: blur(2px);
+}
+
+.cloud::before,
+.cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 50px;
+}
+
+.cloud::before {
+    width: 50px;
+    height: 50px;
+    top: -25px;
+    left: 10px;
+}
+
+.cloud::after {
+    width: 60px;
+    height: 60px;
+    top: -35px;
+    right: 10px;
+}
+
+@keyframes drift {
+    from {
+        transform: translateX(-200px);
+    }
+    to {
+        transform: translateX(calc(100vw + 200px));
+    }
 }
 
 /* ===================================

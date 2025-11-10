@@ -6,6 +6,9 @@ document.addEventListener('DOMContentLoaded', () => {
     initNavigation();
     initScrollAnimations();
     initWildlifeAnimations();
+    initFallingLeaves();
+    initFloatingParticles();
+    initAnimatedClouds();
     initCounterAnimations();
     initFormHandling();
     initSmoothScroll();
@@ -225,6 +228,152 @@ function initWildlifeAnimations() {
 }
 
 // ===================================
+// FALLING LEAVES
+// ===================================
+
+function initFallingLeaves() {
+    const leavesContainer = document.getElementById('leavesContainer');
+    if (!leavesContainer) return;
+
+    const leafEmojis = ['🍂', '🍃', '🌿', '🍁', '🌾'];
+    const leafCount = 30;
+
+    // Create initial leaves
+    for (let i = 0; i < leafCount; i++) {
+        setTimeout(() => createLeaf(), i * 200);
+    }
+
+    // Periodically add new leaves
+    setInterval(() => {
+        if (document.querySelectorAll('.leaf').length < leafCount) {
+            createLeaf();
+        }
+    }, 2000);
+
+    function createLeaf() {
+        const leaf = document.createElement('div');
+        leaf.className = 'leaf';
+        leaf.textContent = leafEmojis[Math.floor(Math.random() * leafEmojis.length)];
+        
+        // Random starting position
+        leaf.style.left = `${Math.random() * 100}%`;
+        leaf.style.top = `-50px`;
+        
+        // Random fall duration
+        const fallDuration = 12 + Math.random() * 8; // 12-20 seconds
+        const swayDuration = 2 + Math.random() * 2; // 2-4 seconds
+        
+        leaf.style.animationDuration = `${fallDuration}s, ${swayDuration}s`;
+        leaf.style.animationDelay = `0s, ${Math.random() * 2}s`;
+        
+        leavesContainer.appendChild(leaf);
+        
+        // Remove leaf after animation
+        setTimeout(() => {
+            leaf.remove();
+        }, fallDuration * 1000);
+    }
+}
+
+// ===================================
+// FLOATING PARTICLES
+// ===================================
+
+function initFloatingParticles() {
+    const particlesContainer = document.getElementById('particlesContainer');
+    if (!particlesContainer) return;
+
+    const particleCount = 50;
+
+    // Create initial particles
+    for (let i = 0; i < particleCount; i++) {
+        setTimeout(() => createParticle(), i * 100);
+    }
+
+    // Periodically add new particles
+    setInterval(() => {
+        if (document.querySelectorAll('.particle').length < particleCount) {
+            createParticle();
+        }
+    }, 3000);
+
+    function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'particle';
+        
+        // Random starting position
+        particle.style.left = `${Math.random() * 100}%`;
+        particle.style.top = `${100 + Math.random() * 20}%`;
+        
+        // Random size variation
+        const size = 3 + Math.random() * 3;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Random animation duration
+        const duration = 20 + Math.random() * 15; // 20-35 seconds
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${Math.random() * 5}s`;
+        
+        particlesContainer.appendChild(particle);
+        
+        // Remove particle after animation
+        setTimeout(() => {
+            particle.remove();
+        }, duration * 1000);
+    }
+}
+
+// ===================================
+// ANIMATED CLOUDS
+// ===================================
+
+function initAnimatedClouds() {
+    const cloudsContainer = document.getElementById('cloudsContainer');
+    if (!cloudsContainer) return;
+
+    const cloudCount = 5;
+
+    // Create clouds
+    for (let i = 0; i < cloudCount; i++) {
+        setTimeout(() => createCloud(), i * 3000);
+    }
+
+    // Periodically add new clouds
+    setInterval(() => {
+        if (document.querySelectorAll('.cloud').length < cloudCount) {
+            createCloud();
+        }
+    }, 15000);
+
+    function createCloud() {
+        const cloud = document.createElement('div');
+        cloud.className = 'cloud';
+        
+        // Random size
+        const width = 80 + Math.random() * 60;
+        const height = 40 + Math.random() * 30;
+        cloud.style.width = `${width}px`;
+        cloud.style.height = `${height}px`;
+        
+        // Random vertical position
+        cloud.style.top = `${10 + Math.random() * 30}%`;
+        
+        // Random animation duration
+        const duration = 40 + Math.random() * 30; // 40-70 seconds
+        cloud.style.animationDuration = `${duration}s`;
+        cloud.style.animationDelay = `${Math.random() * 10}s`;
+        
+        cloudsContainer.appendChild(cloud);
+        
+        // Remove cloud after animation
+        setTimeout(() => {
+            cloud.remove();
+        }, duration * 1000);
+    }
+}
+
+// ===================================
 // COUNTER ANIMATIONS
 // ===================================
 
@@ -353,19 +502,24 @@ function initParallaxEffects() {
     function updateParallax() {
         const scrolled = window.pageYOffset;
 
-        // Parallax background layers
+        // Parallax background layers (combine with existing animations)
         const skyLayer = document.querySelector('.sky-layer');
         const mountainLayer = document.querySelector('.mountain-layer');
         const forestLayer = document.querySelector('.forest-layer');
 
         if (skyLayer) {
-            skyLayer.style.transform = `translateY(${scrolled * 0.1}px)`;
+            const parallaxY = scrolled * 0.1;
+            skyLayer.style.transform = `translateY(${parallaxY}px)`;
         }
         if (mountainLayer) {
-            mountainLayer.style.transform = `translateY(${scrolled * 0.15}px)`;
+            const parallaxY = scrolled * 0.15;
+            // Combine with animation transform
+            mountainLayer.style.transform = `translateY(${parallaxY}px)`;
         }
         if (forestLayer) {
-            forestLayer.style.transform = `translateY(${scrolled * 0.2}px)`;
+            const parallaxX = scrolled * 0.05;
+            const parallaxY = scrolled * 0.2;
+            forestLayer.style.transform = `translate(${parallaxX}px, ${parallaxY}px)`;
         }
 
         // Parallax hero content
@@ -374,6 +528,17 @@ function initParallaxEffects() {
             heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
             heroContent.style.opacity = 1 - (scrolled / 800);
         }
+
+        // Parallax wildlife elements
+        const wildlifeElements = document.querySelectorAll('.wildlife-element');
+        wildlifeElements.forEach((element, index) => {
+            const speed = 0.1 + (index % 3) * 0.05;
+            const parallaxY = scrolled * speed;
+            const currentTransform = element.style.transform || '';
+            if (!currentTransform.includes('translateY')) {
+                element.style.transform = `translateY(${parallaxY}px)`;
+            }
+        });
     }
 }
 
