@@ -21,6 +21,7 @@ function initLoadingScreen() {
     const loadingLogo = document.getElementById('loadingLogo');
     const logoPlaceholder = document.getElementById('logoPlaceholder');
     const body = document.body;
+    const progressBar = document.querySelector('.loading-progress');
 
     if (!loadingScreen) return;
 
@@ -52,69 +53,74 @@ function initLoadingScreen() {
         }
     }
 
-    // Function to hide loading screen
+    // Function to hide loading screen - more aggressive
     function hideLoadingScreen() {
-        if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
+        if (loadingScreen) {
             loadingScreen.classList.add('hidden');
-            body.classList.remove('loading');
-            
-            // Trigger hero animations after loading
-            setTimeout(() => {
-                triggerHeroAnimations();
-            }, 100);
+            loadingScreen.style.display = 'none';
         }
+        body.classList.remove('loading');
+        body.style.overflow = '';
+        
+        // Trigger hero animations after loading
+        setTimeout(() => {
+            triggerHeroAnimations();
+        }, 100);
     }
 
     // Simulate loading progress
     let progress = 0;
-    const progressBar = document.querySelector('.loading-progress');
     let loadingInterval = null;
     let isComplete = false;
     
+    // Start progress animation
     if (progressBar) {
         loadingInterval = setInterval(() => {
             if (isComplete) {
-                clearInterval(loadingInterval);
+                if (loadingInterval) clearInterval(loadingInterval);
                 return;
             }
             
-            progress += Math.random() * 15;
+            progress += Math.random() * 20 + 5; // Faster progress
             if (progress >= 100) {
                 progress = 100;
                 isComplete = true;
-                clearInterval(loadingInterval);
+                if (loadingInterval) clearInterval(loadingInterval);
                 
-                if (progressBar) {
-                    progressBar.style.width = '100%';
-                }
+                progressBar.style.width = '100%';
                 
                 // Hide loading screen after a short delay
                 setTimeout(() => {
                     hideLoadingScreen();
-                }, 500);
+                }, 300);
             } else {
-                if (progressBar) {
-                    progressBar.style.width = progress + '%';
-                }
+                progressBar.style.width = progress + '%';
             }
-        }, 100);
-    }
-
-    // Fallback: Always hide after maximum time (3 seconds)
-    setTimeout(() => {
-        if (!isComplete && loadingInterval) {
-            clearInterval(loadingInterval);
-            isComplete = true;
-        }
-        
-        if (progressBar) {
-            progressBar.style.width = '100%';
-        }
-        
+        }, 50); // Faster interval
+    } else {
+        // If no progress bar, just wait and hide
         setTimeout(() => {
             hideLoadingScreen();
-        }, 500);
-    }, 3000);
+        }, 2000);
+    }
+
+    // CRITICAL FALLBACK: Always hide after maximum time (2.5 seconds)
+    setTimeout(() => {
+        if (!isComplete) {
+            isComplete = true;
+            if (loadingInterval) {
+                clearInterval(loadingInterval);
+            }
+            if (progressBar) {
+                progressBar.style.width = '100%';
+            }
+        }
+        
+        // Force hide after a brief delay
+        setTimeout(() => {
+            hideLoadingScreen();
+        }, 200);
+    }, 2500);
 }
 
 function triggerHeroAnimations() {

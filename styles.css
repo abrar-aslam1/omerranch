@@ -173,6 +173,7 @@ body.loading {
 .loading-screen.hidden {
     opacity: 0;
     visibility: hidden;
+    display: none !important;
 }
 
 .loading-content {
