@@ -49,10 +49,10 @@ A cutting-edge, immersive website showcasing Omer Ranch as a premium destination
 
 #### 4. Hunting Section
 - Two-column layout with:
-  - **Left**: 4 Feature boxes (Guided Expeditions, Premium Lodging, Abundant Wildlife, Safety First)
-  - **Right**: Season information and package pricing
+  - **Left**: 4 Feature boxes (Expert Guides, Prime Stands, Lodging, Quality Deer)
+  - **Right**: Season information and hunting details
 - Hover effects with sliding animations
-- Professional pricing display
+- Professional hunting information display
 
 #### 5. Contact Section
 - Futuristic contact form with:
@@ -160,7 +160,7 @@ Edit the CSS custom properties in `styles.css`:
 
 ### Updating Content
 1. **Statistics**: Edit the `data-count` attributes in `index.html`
-2. **Prices**: Update the package prices in the hunting section
+2. **Hunting Info**: Update hunting seasons and details in the hunting section
 3. **Contact Info**: Change phone, email, location in contact section
 
 ### Adding More Sections
