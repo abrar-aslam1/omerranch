@@ -523,10 +523,12 @@ body.loading {
     width: auto;
     object-fit: contain;
     transition: var(--transition);
+    filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(1234%) hue-rotate(67deg) brightness(95%) contrast(88%);
 }
 
 .nav-logo:hover {
     transform: scale(1.05);
+    filter: brightness(0) saturate(100%) invert(24%) sepia(48%) saturate(1234%) hue-rotate(67deg) brightness(110%) contrast(95%);
 }
 
 .logo-text {
